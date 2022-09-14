@@ -1,4 +1,5 @@
 import Undici, { RequestInit } from 'undici';
+import { DocApi } from './apis/DocApi';
 import { UserApi } from './apis/UserApi';
 import type { RequestFn, RequestMethod, YuqueResponseBase } from './types/lib.type';
 
@@ -28,10 +29,18 @@ export class YuqueClient {
    */
   user: UserApi;
 
+  /**
+   * 文档相关接口
+   */
+  doc: DocApi;
+
   constructor(options: YuqueClientOptions) {
     this.finalOptions = { ...defaultYuqueClientOptions, ...options };
 
     this.user = new UserApi(this.request);
+
+    this.doc = new DocApi(this.request);
+
   }
 
   /**
@@ -62,12 +71,13 @@ export class YuqueClient {
     // ● 429 - 访问被限流，Too Many Requests
     // ● 404 - 数据不存在，或未开放
     // ● 500 - 服务器异常
-    console.log(apiUrl);
+    console.log('url', apiUrl);
     return Undici.fetch(apiUrl, requestInit)
       .then((res) => {
         return res.json() as Promise<YuqueResponseBase<DataT>>;
       })
       .then((resBody) => {
+        console.log(resBody);
         return resBody.data;
       });
   };

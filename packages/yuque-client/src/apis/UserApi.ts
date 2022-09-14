@@ -1,4 +1,4 @@
-import { User } from '../types/entities';
+import { UserSerializer } from '../types/UserSerializer';
 import { YuqueAPIBase } from './YuqueAPIBase';
 
 export class UserApi extends YuqueAPIBase {
@@ -7,8 +7,8 @@ export class UserApi extends YuqueAPIBase {
    * @param userId
    * @returns
    */
-  getSingleUserInfo(userId: string | number): Promise<User> {
-    return this.get<User>(`/users/${userId}`);
+  getSingleUserInfo(userId: string | number): Promise<UserSerializer> {
+    return this.get<UserSerializer>(`/users/${userId}`);
   }
 
   /**
@@ -16,6 +16,6 @@ export class UserApi extends YuqueAPIBase {
    * @returns
    */
   getCurrentUser() {
-    return this.get<User>(`/user`);
+    return this.get<UserSerializer>(`/user`);
   }
 }

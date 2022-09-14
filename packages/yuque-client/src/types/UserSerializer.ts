@@ -1,4 +1,7 @@
-export type User = {
+/**
+ * 用户类型定义
+ */
+export type UserSerializer = {
   /**
    * ID
    */
@@ -42,3 +45,4 @@ export type User = {
   public: number;
   _serializer: string;
 };
+
