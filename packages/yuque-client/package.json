@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
+  "module": "dist/esm/index.js",
   "scripts": {
     "dev": "father dev",
     "build": "father build",
@@ -11,7 +12,11 @@
     "prepublishOnly": "father doctor && npm run build",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "yuque",
+    "yuque-sdk",
+    "yuque-client"
+  ],
   "authors": [],
   "license": "MIT",
   "files": [

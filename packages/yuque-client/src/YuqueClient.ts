@@ -1,5 +1,6 @@
 import Undici, { RequestInit } from 'undici';
 import { DocApi } from './apis/DocApi';
+import { RepoApi } from './apis/RepoApi';
 import { UserApi } from './apis/UserApi';
 import type { RequestFn, RequestMethod, YuqueResponseBase } from './types/lib.type';
 import { log } from './utils';
@@ -35,12 +36,17 @@ export class YuqueClient {
    */
   doc: DocApi;
 
+  /**
+   * 知识库相关接口
+   */
+  repo: RepoApi;
+
   constructor(options: YuqueClientOptions) {
     this.finalOptions = { ...defaultYuqueClientOptions, ...options };
 
     this.user = new UserApi(this.request);
-
     this.doc = new DocApi(this.request);
+    this.repo = new RepoApi(this.request);
   }
 
   /**

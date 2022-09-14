@@ -1,7 +1,7 @@
 import { CreateDocRequest, DocSerializer, DocUpdateRequest } from '../types/doc.type';
 import { YuqueAPIBase } from './YuqueAPIBase';
 
-export type QueryDocListOptions = {
+export type QueryDocsOptions = {
   page?: number;
   pageSize?: number;
   includeReadCount?: boolean;
@@ -14,7 +14,7 @@ export class DocApi extends YuqueAPIBase {
    * @param options
    * @returns
    */
-  queryDocList(repoIdOrName: string | number, options?: QueryDocListOptions): Promise<DocSerializer[]> {
+  queryDocs(repoIdOrName: string | number, options?: QueryDocsOptions): Promise<DocSerializer[]> {
     const opt = { page: 1, pageSize: 500, ...options };
     // query 参数
     const query: Record<string, string | number> = {};
