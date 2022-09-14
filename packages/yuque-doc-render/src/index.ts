@@ -1,1 +1,2 @@
-export default 'Hello father 4!';
+export { HtmlRender } from './html-render-react/HtmlRender';
+export type { HtmlRenderProps } from './html-render-react/HtmlRender';

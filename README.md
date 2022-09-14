@@ -26,6 +26,9 @@ pnpm run build
 ```bash
 # 在顶层 package.json 添加 DEV 依赖
 pnpm i -w -D <package name>
+
+# 添加依赖到子包
+pnpm add react react-dom --save-peer --filter <package name>
 ```
 
 ## 其他

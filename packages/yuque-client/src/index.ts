@@ -1,1 +1,2 @@
-export default 'Hello father 4!';
+export { YuqueClient } from './YuqueClient';
+export type { YuqueClientOptions } from './YuqueClient';

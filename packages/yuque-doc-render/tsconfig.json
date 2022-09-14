@@ -3,6 +3,8 @@
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
     "baseUrl": "./"
   }
 }
