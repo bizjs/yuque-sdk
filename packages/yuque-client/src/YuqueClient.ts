@@ -28,6 +28,10 @@ const defaultYuqueClientOptions = {
 export class YuqueClient {
   private finalOptions: YuqueClientOptions;
   /**
+   * 请求序列号
+   */
+  private static ReqSeqNumber = 0;
+  /**
    * 用户相关接口
    */
   user: UserApi;
@@ -44,7 +48,7 @@ export class YuqueClient {
 
   /**
    * 组织（知识小组）相关接口
-   * @deprecated 组织已经不在允许了
+  //  * @deprecated 组织已经不在允许了
    */
   group: GroupApi;
 
@@ -73,9 +77,10 @@ export class YuqueClient {
         'User-Agent': this.finalOptions.appName,
         'Content-Type': 'application/json',
       },
+      // dispatcher: new ProxyAgent({ uri: 'http://127.0.0.1:8888', requestTls: { rejectUnauthorized: false } }),
     };
     if (data) {
-      requestInit.body = data as any;
+      requestInit.body = JSON.stringify(data);
     }
 
     // ● 200 - 成功
@@ -85,13 +90,14 @@ export class YuqueClient {
     // ● 429 - 访问被限流，Too Many Requests
     // ● 404 - 数据不存在，或未开放
     // ● 500 - 服务器异常
-    log('fetch url = %s, params = %o', apiUrl, requestInit);
+    const reqSeqNumber = ++YuqueClient.ReqSeqNumber;
+    log('%s: fetch url = %s, params = %o', reqSeqNumber, apiUrl, requestInit);
     return Undici.fetch(apiUrl, requestInit)
       .then((res) => {
         return res.json() as Promise<YuqueResponseBase<DataT>>;
       })
       .then((resBody) => {
-        console.log(resBody);
+        log('%s: message = %s, status = %s', reqSeqNumber, resBody.message, resBody.status);
         return resBody.data;
       });
   };

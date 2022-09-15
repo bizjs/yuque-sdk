@@ -1,14 +1,24 @@
-import type { IdOrLogin } from '../types/lib.type';
-import type { RepoSerializer, RepoUpdateRequest, RepoCreateRequest } from '../types/repo.type';
+import type { IdOrKey } from '../types/lib.type';
+import type { RepoSerializer, RepoUpdateRequest, RepoCreateRequest, RepoDetailSerializer } from '../types/repo.type';
 import { YuqueAPIBase } from './YuqueAPIBase';
 
 export class RepoApi extends YuqueAPIBase {
-  queryUserRepos(userIdOrLoginId: string | number): Promise<RepoSerializer[]> {
-    return this.get<RepoSerializer[]>(`/users/${userIdOrLoginId}/repos`);
+  /**
+   * 查询用户下的知识库列表
+   * @param userIdOrLogin
+   * @returns
+   */
+  queryUserRepos(userIdOrLogin: IdOrKey) {
+    return this.get<RepoSerializer[]>(`/users/${userIdOrLogin}/repos`);
   }
 
-  queryGroupRepos(groupIdOrGroupSlug: IdOrLogin) {
-    return this.get(`/groups/${groupIdOrGroupSlug}/repos`);
+  /**
+   * 查询组织（团队）下的知识库列表
+   * @param groupIdOrGroupSlug
+   * @returns
+   */
+  queryGroupRepos(groupIdOrGroupSlug: IdOrKey) {
+    return this.get<RepoSerializer[]>(`/groups/${groupIdOrGroupSlug}/repos`);
   }
 
   /**
@@ -17,8 +27,8 @@ export class RepoApi extends YuqueAPIBase {
    * @param repoCreateRequest 创建知识库的数据
    * @returns
    */
-  createUserRepo(userIdOrLoginId: IdOrLogin, repoCreateRequest: RepoCreateRequest) {
-    return this.post(`/users/${userIdOrLoginId}/repos`, repoCreateRequest);
+  createUserRepo(userIdOrLoginId: IdOrKey, repoCreateRequest: RepoCreateRequest) {
+    return this.post<RepoSerializer>(`/users/${userIdOrLoginId}/repos`, repoCreateRequest);
   }
 
   /**
@@ -28,24 +38,35 @@ export class RepoApi extends YuqueAPIBase {
    * @see {@link createUserRepo}
    * @returns
    */
-  createGroupRepo(groupIdOrGroupSlug: IdOrLogin, repoCreateRequest: RepoCreateRequest) {
-    return this.post(`/groups/${groupIdOrGroupSlug}/repos`, repoCreateRequest);
+  createGroupRepo(groupIdOrGroupSlug: IdOrKey, repoCreateRequest: RepoCreateRequest) {
+    return this.post<RepoSerializer>(`/groups/${groupIdOrGroupSlug}/repos`, repoCreateRequest);
   }
 
   /**
    * 查询知识库详情
-   * @param repoIdOrName Name 结构：group/repo
+   * @param repoIdOrNamespace Namespace 结构：group/repo
    * @returns
    */
-  getRepoDetail(repoIdOrName: string) {
-    return this.get(`/repos/${repoIdOrName}`);
+  getRepoDetail(repoIdOrNamespace: IdOrKey) {
+    return this.get<RepoDetailSerializer>(`/repos/${repoIdOrNamespace}`);
   }
 
-  updateRepo(repoIdOrName: string, repoUpdateRequest: RepoUpdateRequest) {
-    return this.put(`/repos/${repoIdOrName}`, repoUpdateRequest);
+  /**
+   * 更新 Repo
+   * @param repoIdOrNamespace 知识库ID 或者 namespace
+   * @param repoUpdateRequest
+   * @returns
+   */
+  updateRepo(repoIdOrNamespace: IdOrKey, repoUpdateRequest: RepoUpdateRequest) {
+    return this.put<RepoDetailSerializer>(`/repos/${repoIdOrNamespace}`, repoUpdateRequest);
   }
 
-  deleteRepo(repoIdOrName: string) {
-    return this.delete(`/repos/${repoIdOrName}`);
+  /**
+   * 删除知识库
+   * @param repoIdOrNamespace 知识库ID 或者 namespace
+   * @returns
+   */
+  deleteRepo(repoIdOrNamespace: IdOrKey) {
+    return this.delete<RepoDetailSerializer>(`/repos/${repoIdOrNamespace}`);
   }
 }

@@ -6,7 +6,8 @@
   "scripts": {
     "dev:client": "lerna run dev --stream --scope yuque-client",
     "build": "lerna run build --stream",
-    "test": "cross-env DEBUG=yuque-client lerna run test --stream",
+    "test": "cross-env DEBUG=yuque lerna run test --stream",
+    "test:client": "cross-env DEBUG=yuque:client lerna run test --scope yuque-client --stream",
     "pub": "lerna run test && lerna run build && lerna publish"
   },
   "keywords": [],

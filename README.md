@@ -29,6 +29,9 @@ pnpm i -w -D <package name>
 
 # 添加依赖到子包
 pnpm add react react-dom --save-peer --filter <package name>
+
+# 测试单个 Case
+pnpm test:client --  -t 'YuqueClient repo apis tests get repo detail'
 ```
 
 ## 其他

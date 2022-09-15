@@ -1,16 +1,8 @@
-import { YuqueClient } from '../src';
-import * as dotenv from 'dotenv';
-
-const config = dotenv.config();
-
-const client = new YuqueClient({
-  accessToken: config.parsed?.AccessToken || '',
-  appName: 'demo',
-});
+import { getClient } from './utils';
 
 describe('YuqueClient doc apis tests', () => {
+  const client = getClient();
   test('query doc list', async () => {
     const docList = await client.doc.queryDocs('hstarorg/docs');
-    console.log(docList);
   });
 });

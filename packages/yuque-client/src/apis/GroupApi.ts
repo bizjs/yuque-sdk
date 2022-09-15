@@ -1,4 +1,4 @@
-import type { IdOrLogin } from '../types/lib.type';
+import type { IdOrKey } from '../types/lib.type';
 import type { AddOrUpdateGroupUserRequest, CreateGroupRequest } from '../types/group.type';
 import type { UserSerializer } from '../types/user.type';
 import { YuqueAPIBase } from './YuqueAPIBase';
@@ -9,7 +9,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param userIdOrloginId 用户 ID 或登录名
    * @returns
    */
-  queryUserGroups(userIdOrloginId: IdOrLogin) {
+  queryUserGroups(userIdOrloginId: IdOrKey) {
     return this.get<UserSerializer>(`/users/${userIdOrloginId}/groups`);
   }
 
@@ -18,7 +18,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param groupIdOrLogin 组织 ID 或登录名
    * @returns
    */
-  getGroupDetail(groupIdOrLogin: IdOrLogin) {
+  getGroupDetail(groupIdOrLogin: IdOrKey) {
     return this.get<UserSerializer>(`/groups/${groupIdOrLogin}`);
   }
 
@@ -45,7 +45,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param updateGroupRequest 要更新的数据
    * @returns
    */
-  updateGroup(groupIdOrLogin: IdOrLogin, updateGroupRequest: CreateGroupRequest) {
+  updateGroup(groupIdOrLogin: IdOrKey, updateGroupRequest: CreateGroupRequest) {
     return this.put(`/groups/${groupIdOrLogin}`, updateGroupRequest);
   }
 
@@ -54,7 +54,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param groupIdOrLogin 组织 ID 或登录名
    * @returns
    */
-  deleteGroup(groupIdOrLogin: IdOrLogin) {
+  deleteGroup(groupIdOrLogin: IdOrKey) {
     return this.delete(`/groups/${groupIdOrLogin}`);
   }
 
@@ -63,7 +63,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param groupIdOrLogin 组织 ID 或登录名
    * @returns
    */
-  queryGroupUsers(groupIdOrLogin: IdOrLogin) {
+  queryGroupUsers(groupIdOrLogin: IdOrKey) {
     return this.get(`/groups/${groupIdOrLogin}/users`);
   }
 
@@ -73,7 +73,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param data 更新数据
    * @returns
    */
-  addOrUpdateGroupUser(groupIdOrLogin: IdOrLogin, data: AddOrUpdateGroupUserRequest) {
+  addOrUpdateGroupUser(groupIdOrLogin: IdOrKey, data: AddOrUpdateGroupUserRequest) {
     const reqData = { role: data.role === 'admin' ? 0 : 1 };
     return this.put(`/groups/${groupIdOrLogin}/users/${data.userLogin}`, reqData);
   }
@@ -84,7 +84,7 @@ export class GroupApi extends YuqueAPIBase {
    * @param userLogin 用户登录名
    * @returns
    */
-  deleteGroupUser(groupIdOrLogin: IdOrLogin, userLogin: string) {
+  deleteGroupUser(groupIdOrLogin: IdOrKey, userLogin: string) {
     return this.delete(`/groups/${groupIdOrLogin}/users/${userLogin}`);
   }
 }
