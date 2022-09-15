@@ -10,7 +10,7 @@ const client = new YuqueClient({
 
 describe('YuqueClient doc apis tests', () => {
   test('query doc list', async () => {
-    const docList = await client.doc.queryDocList('hstarorg/docs');
+    const docList = await client.doc.queryDocs('hstarorg/docs');
     console.log(docList);
   });
 });

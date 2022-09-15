@@ -1,5 +1,6 @@
 import Undici, { RequestInit } from 'undici';
 import { DocApi } from './apis/DocApi';
+import { GroupApi } from './apis/GroupApi';
 import { RepoApi } from './apis/RepoApi';
 import { UserApi } from './apis/UserApi';
 import type { RequestFn, RequestMethod, YuqueResponseBase } from './types/lib.type';
@@ -41,12 +42,18 @@ export class YuqueClient {
    */
   repo: RepoApi;
 
+  /**
+   * 团队相关接口
+   */
+  group: GroupApi;
+
   constructor(options: YuqueClientOptions) {
     this.finalOptions = { ...defaultYuqueClientOptions, ...options };
 
     this.user = new UserApi(this.request);
     this.doc = new DocApi(this.request);
     this.repo = new RepoApi(this.request);
+    this.group = new GroupApi(this.request);
   }
 
   /**

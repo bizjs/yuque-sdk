@@ -4,6 +4,8 @@ export type RequestOptions = {
   query?: Record<string, string | number>;
 };
 
+export type IdOrLogin = string | number;
+
 export type RequestFn = <DataT, ReqT>(
   method: RequestMethod,
   url: string,
