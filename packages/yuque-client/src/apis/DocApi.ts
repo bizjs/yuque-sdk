@@ -25,11 +25,11 @@ export class DocApi extends YuqueAPIBase {
   /**
    * 获取单个文档的明细
    * @param repoIdOrName 知识库 ID 或名称
-   * @param slug
+   * @param idOrSlug 文档 ID 或者 slug
    * @returns
    */
-  getDocDetail(repoIdOrName: string | number, slug: string) {
-    return this.get(`/repos/${repoIdOrName}/docs/${slug}`);
+  getDocDetail(repoIdOrName: string | number, idOrSlug: string) {
+    return this.get(`/repos/${repoIdOrName}/docs/${idOrSlug}`);
   }
 
   /**
@@ -45,8 +45,8 @@ export class DocApi extends YuqueAPIBase {
   /**
    * 更新文档
    * @param repoIdOrName 知识库 ID 或名称
-   * @param docId 为
-   * @param docUpdateRequest
+   * @param docId 必须是文档 ID
+   * @param docUpdateRequest 更新内容
    * @returns
    */
   updateDoc(repoIdOrName: string | number, docId: number, docUpdateRequest: DocUpdateRequest) {
@@ -56,7 +56,7 @@ export class DocApi extends YuqueAPIBase {
   /**
    * 删除文档
    * @param repoIdOrName 知识库 ID 或名称
-   * @param docId
+   * @param docId 必须是文档 ID
    * @returns
    */
   deleteDoc(repoIdOrName: string | number, docId: number) {

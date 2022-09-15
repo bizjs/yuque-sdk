@@ -43,7 +43,8 @@ export class YuqueClient {
   repo: RepoApi;
 
   /**
-   * 团队相关接口
+   * 组织（知识小组）相关接口
+   * @deprecated 组织已经不在允许了
    */
   group: GroupApi;
 

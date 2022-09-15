@@ -10,7 +10,7 @@ export type CreateGroupRequest = {
   /**
    * 介绍
    */
-  description: string;
+  description?: string;
 };
 
 export type AddOrUpdateGroupUserRequest = {

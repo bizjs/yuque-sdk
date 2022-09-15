@@ -66,9 +66,9 @@ export type DocDetailSerializer = {};
 
 export type CreateDocRequest = {
   /**
-   * 标题
+   * 标题，不传默认为”未命名“
    */
-  title: string;
+  title?: string;
   /**
    * 文档 Slug
    */
@@ -76,11 +76,11 @@ export type CreateDocRequest = {
   /**
    * 支持 markdown、lake、html，默认为 markdown
    */
-  format: 'markdown' | 'lake' | 'html';
+  format?: 'markdown' | 'lake' | 'html';
   /**
    * format 描述的正文内容，最大允许 5MB
    */
-  body: string;
+  body?: string;
 };
 
 export type DocUpdateRequest = {
@@ -95,10 +95,10 @@ export type DocUpdateRequest = {
   /**
    * 已发布的正文 Markdown，这个字段必传
    */
-  body: string;
+  body?: string;
   /**
    * 如果在页面编辑过文档，那这时文档会转成 lake 格式，如果再用 markdown 无法进行更新，这是需要添加
   _force_asl = 1 来确保内容的正确转换。
    */
-  _force_asl: number;
+  _force_asl?: number;
 };
