@@ -1,9 +1,10 @@
 import Undici, { RequestInit } from 'undici';
+import { updateUrl } from '@bizjs/biz-utils-node';
 import { DocApi } from './apis/DocApi';
 import { GroupApi } from './apis/GroupApi';
 import { RepoApi } from './apis/RepoApi';
 import { UserApi } from './apis/UserApi';
-import type { RequestFn, RequestMethod, YuqueResponseBase } from './types/lib.type';
+import type { RequestFn, RequestMethod, RequestOptions, YuqueResponseBase } from './types/lib.type';
 import { log } from './utils';
 
 export type YuqueClientOptions = {
@@ -68,8 +69,16 @@ export class YuqueClient {
    * @param data
    * @returns
    */
-  private request: RequestFn = <DataT, ReqT>(method: RequestMethod, url: string, data?: ReqT): Promise<DataT> => {
-    const apiUrl = this.finalOptions.apiHost + url;
+  private request: RequestFn = <DataT, ReqT>(
+    method: RequestMethod,
+    url: string,
+    data?: ReqT,
+    options?: RequestOptions
+  ): Promise<DataT> => {
+    let apiUrl = this.finalOptions.apiHost + url;
+    if (options?.params) {
+      apiUrl = updateUrl(apiUrl, { query: options.params });
+    }
     const requestInit: RequestInit = {
       method,
       headers: {
@@ -77,6 +86,7 @@ export class YuqueClient {
         'User-Agent': this.finalOptions.appName,
         'Content-Type': 'application/json',
       },
+      // redirect: 'manual'
       // dispatcher: new ProxyAgent({ uri: 'http://127.0.0.1:8888', requestTls: { rejectUnauthorized: false } }),
     };
     if (data) {

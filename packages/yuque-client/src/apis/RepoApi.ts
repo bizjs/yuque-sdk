@@ -2,6 +2,10 @@ import type { IdOrKey } from '../types/lib.type';
 import type { RepoSerializer, RepoUpdateRequest, RepoCreateRequest, RepoDetailSerializer } from '../types/repo.type';
 import { YuqueAPIBase } from './YuqueAPIBase';
 
+/**
+ * 知识库类 API 实现
+ * https://www.yuque.com/yuque/developer/repo
+ */
 export class RepoApi extends YuqueAPIBase {
   /**
    * 查询用户下的知识库列表

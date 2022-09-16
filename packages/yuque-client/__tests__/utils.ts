@@ -11,7 +11,3 @@ export function getClient(name = 'www') {
   });
   return client;
 }
-
-describe('', () => {
-  test.todo('');
-});

@@ -1,3 +1,9 @@
+import type { UserSerializer } from './user.type';
+
+/**
+ * 文档模型
+ * _serializer = "v2.doc"
+ */
 export type DocSerializer = {
   id: number;
   /**
@@ -8,10 +14,20 @@ export type DocSerializer = {
    * 标题
    */
   title: string;
+
+  /**
+   * 文档描述
+   */
+  description: string;
   /**
    * 文档创建人 ID
    */
   user_id: number;
+
+  /**
+   * 知识库 ID
+   */
+  book_id: number;
   /**
    *  描述了正文的格式 [asl, markdown, lake]
    */
@@ -45,21 +61,37 @@ export type DocSerializer = {
    */
   updated_at: string;
 
-  // 其他文档上无的属性
-  description: string;
-  book_id: number;
-  read_count: number; // 阅读量
+  /**
+   * 阅读量
+   */
+  read_count: number;
   first_published_at: string;
   published_at: string;
+  /**
+   * 字数
+   */
   word_count: number;
-  cover: string; // 封面图地址
+  /**
+   * 封面图地址
+   */
+  cover: string;
   view_status: number;
   read_status: number;
   draft_version: number;
   last_editor_id: number;
+  /**
+   * 自定义描述
+   */
   custom_description: string;
-  _serializer: 'v2.doc';
-  last_editor: any[];
+  /**
+   * 最后编辑者信息
+   */
+  last_editor: UserSerializer;
+  book?: any;
+  /**
+   * optional_properties = hits 时出现，表示阅读量
+   */
+  hits?: number;
 };
 
 export type DocDetailSerializer = {};

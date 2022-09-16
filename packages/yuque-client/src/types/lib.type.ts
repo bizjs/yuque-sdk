@@ -1,7 +1,10 @@
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export type RequestOptions = {
-  query?: Record<string, string | number>;
+  /**
+   * 随请求一起发送的 URL Query 参数
+   */
+  params?: Record<string, string | undefined>;
 };
 
 export type IdOrKey = string | number;

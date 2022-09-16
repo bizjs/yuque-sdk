@@ -3,23 +3,33 @@ import { YuqueAPIBase } from './YuqueAPIBase';
 
 export type QueryDocsOptions = {
   page?: number;
-  pageSize?: number;
+  size?: number;
   includeReadCount?: boolean;
 };
 
+/**
+ * 文档类 API 实现
+ * https://www.yuque.com/yuque/developer/doc
+ */
 export class DocApi extends YuqueAPIBase {
   /**
    * 查询知识库的文档列表
    * @param repoIdOrName 知识库 ID 或名称
-   * @param options
+   * @param options 可分页查询，page 当前页码，size 每页记录数（每页默认 200 条）
    * @returns
    */
   queryDocs(repoIdOrName: string | number, options?: QueryDocsOptions): Promise<DocSerializer[]> {
-    const opt = { page: 1, pageSize: 500, ...options };
+    const opt = { page: 1, size: 200, ...options };
     // query 参数
-    const query: Record<string, string | number> = {};
+    const params: Record<string, string | undefined> = {
+      offset: String((opt.page - 1) * opt.size),
+      limit: String(opt.size),
+    };
+    if (opt.includeReadCount) {
+      params['optional_properties'] = 'hits';
+    }
 
-    return this.get(`/repos/${repoIdOrName}/docs`, { query });
+    return this.get<DocSerializer[]>(`/repos/${repoIdOrName}/docs`, { params });
   }
 
   /**

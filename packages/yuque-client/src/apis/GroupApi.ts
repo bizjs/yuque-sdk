@@ -3,6 +3,10 @@ import type { AddOrUpdateGroupUserRequest, CreateGroupRequest } from '../types/g
 import type { UserSerializer } from '../types/user.type';
 import { YuqueAPIBase } from './YuqueAPIBase';
 
+/**
+ * 组织类 API 实现
+ * https://www.yuque.com/yuque/developer/group
+ */
 export class GroupApi extends YuqueAPIBase {
   /**
    * 获取用户的组织列表
