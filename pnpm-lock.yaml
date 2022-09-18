@@ -32,12 +32,12 @@ importers:
 
   packages/yuque-client:
     specifiers:
-      '@bizjs/biz-utils-node': ^0.3.4
+      '@bizjs/biz-utils-node': ^0.3.5
       '@types/debug': ^4.1.7
       debug: ^4.3.4
       undici: ^5.10.0
     dependencies:
-      '@bizjs/biz-utils-node': 0.3.4
+      '@bizjs/biz-utils-node': 0.3.5
       debug: 4.3.4
       undici: 5.10.0
     devDependencies:
@@ -401,8 +401,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@bizjs/biz-utils-common/0.3.4:
-    resolution: {integrity: sha512-deuDpqoJvkBdUPYj4VYh835+x5/5KPZlICXQkVz+HlXoZVKb1Ih9/TJRLz7/h2rC7K3fejwRQneyndvBC0nPYA==}
+  /@bizjs/biz-utils-common/0.3.5:
+    resolution: {integrity: sha512-e0kOgp8hXp43kVPXXF3fMMbkX0EkZee1Kj8hzCbME6BYr5Bm19OjprwTYtgW9yXS2pCr/8hJXT0Dm0Dy2r5vKg==}
     dependencies:
       dayjs: 1.11.5
       decimal.js: 10.4.0
@@ -412,10 +412,10 @@ packages:
       validator: 13.7.0
     dev: false
 
-  /@bizjs/biz-utils-node/0.3.4:
-    resolution: {integrity: sha512-FJ21+mOH0GOrLLOkU9B+pcSxSy/15mC2SsVMFuzzyPB8Qbdnaqb206J4QsAvbQdbb2Q5PIYNFrypLBlOesIDQg==}
+  /@bizjs/biz-utils-node/0.3.5:
+    resolution: {integrity: sha512-4/1ywjrHkgg2LlamZoOHZjGWZcrY5j0bMDcF1jxTtJcZrcOkxC/xrVfmPigL0L2918be1L+GXp7nbXaMOd80pw==}
     dependencies:
-      '@bizjs/biz-utils-common': 0.3.4
+      '@bizjs/biz-utils-common': 0.3.5
     dev: false
 
   /@bloomberg/record-tuple-polyfill/0.0.4:
