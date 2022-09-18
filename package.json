@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:client": "lerna run dev --stream --scope yuque-client",
+    "dev:render": "lerna run dev --stream --scope yuque-doc-render",
     "build": "lerna run build --stream",
     "test": "cross-env DEBUG=yuque lerna run test --stream",
     "test:client": "cross-env DEBUG=yuque:client lerna run test --scope yuque-client --stream",

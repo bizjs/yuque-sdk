@@ -1,3 +1,4 @@
 export default {
-  npmClient: 'pnpm'
+  npmClient: 'pnpm',
+  mfsu: false,
 };
