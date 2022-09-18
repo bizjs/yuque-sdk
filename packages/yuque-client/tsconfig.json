@@ -3,6 +3,8 @@
     "strict": true,
     "declaration": true,
     "skipLibCheck": true,
+    "moduleResolution": "Node",
+    "lib": ["ESNext"],
     "esModuleInterop": true,
     "baseUrl": "./"
   }

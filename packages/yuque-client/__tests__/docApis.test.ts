@@ -42,7 +42,10 @@ describe('YuqueClient doc apis tests', () => {
     expect(delResult.deleted_at).toBeTruthy();
 
     // Query detail 不存在
-    const detail = await client.doc.getDocDetail(repo, newDoc.slug);
-    expect(detail).toBe(undefined);
+    try {
+      await client.doc.getDocDetail(repo, newDoc.slug);
+    } catch (reason: any) {
+      expect(reason.status).toBe(404);
+    }
   });
 });

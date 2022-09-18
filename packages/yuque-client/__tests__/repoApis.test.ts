@@ -12,21 +12,21 @@ describe('YuqueClient repo apis tests', () => {
       name: '测试知识库',
       slug: 'test-lib',
     });
-    console.log('beforeAll: 创建知识库成功', result);
+    console.log('beforeAll: 创建知识库成功', { id: result.id, name: result.name });
   });
 
   afterAll(async () => {
     const result = await client.repo.deleteRepo(namespace);
-    console.log('afterAll: 删除知识库成功', result);
+    console.log('afterAll: 删除知识库成功', { id: result.id, name: result.name });
   });
 
   test('query repo list', async () => {
     const repoList = await client.repo.queryUserRepos(groupName);
     const repoList2 = await client.repo.queryGroupRepos(groupName);
 
-    expect(repoList).toStrictEqual(repoList2);
+    expect(repoList.length).toBe(repoList2.length);
 
-    expect(repoList[0].id).toBeGreaterThan(0);
+    expect(repoList[0].id).toBe(repoList2[0].id);
   });
 
   test('get repo detail', async () => {
@@ -64,7 +64,10 @@ describe('YuqueClient repo apis tests', () => {
     expect(delResult.id).toBe(detail.id);
 
     // 最后检查
-    const detail2 = await client.repo.getRepoDetail(updatedRepo.id);
-    expect(detail2).toBe(undefined);
+    try {
+      await client.repo.getRepoDetail(updatedRepo.id);
+    } catch (reason: any) {
+      expect(reason.status).toBe(404);
+    }
   });
 });

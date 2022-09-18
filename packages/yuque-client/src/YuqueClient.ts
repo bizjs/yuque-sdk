@@ -1,4 +1,4 @@
-import Undici, { RequestInit } from 'undici';
+import Undici, { RequestInit, Headers } from 'undici';
 import { updateUrl } from '@bizjs/biz-utils-node';
 import { DocApi } from './apis/DocApi';
 import { GroupApi } from './apis/GroupApi';
@@ -117,10 +117,10 @@ export class YuqueClient {
     const reqSeqNumber = ++YuqueClient.ReqSeqNumber;
     log('%s: fetch url = %s, params = %o', reqSeqNumber, apiUrl, requestInit);
     return Undici.fetch(apiUrl, requestInit)
-      .then((res): Promise<{ status: number; body: any; headers: Headers }> => {
+      .then((res): Promise<{ status: number; body: any; headers: Headers; url: string; method: string }> => {
         // 完全解析出请求数据
         return res.json().then((body) => {
-          return { status: res.status, headers: res.headers, body };
+          return { status: res.status, headers: res.headers, body, url: apiUrl, method: requestInit.method! };
         });
       })
       .then((responseData): Promise<YuqueResponseBase<DataT>> => {
@@ -146,9 +146,6 @@ export class YuqueClient {
       })
       .then((resBody) => {
         return resBody.data;
-      })
-      .catch((reason) => {
-        return Promise.reject(reason);
       });
   };
 }
