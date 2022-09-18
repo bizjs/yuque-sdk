@@ -83,7 +83,7 @@ export class YuqueClient {
    * @param data
    * @returns
    */
-  private request: RequestFn = <DataT, ReqT>(
+  private request: RequestFn = async <DataT, ReqT>(
     method: RequestMethod,
     url: string,
     data?: ReqT,
