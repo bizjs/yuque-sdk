@@ -11,8 +11,8 @@ describe('YuqueClient user apis tests', () => {
     const user3 = await client.user.getSingleUserInfo(user.login);
 
     // 这三个用户对象要值相等
-    expect(user).toStrictEqual(user2);
-    expect(user2).toStrictEqual(user3);
+    expect(user.id).toStrictEqual(user2.id);
+    expect(user2.name).toStrictEqual(user3.name);
 
     expect(user.type).toBe('User');
   });
