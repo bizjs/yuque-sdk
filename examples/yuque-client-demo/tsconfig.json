@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "declaration": true,
+    "moduleResolution": "node",
+    "module": "CommonJS",
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "baseUrl": "./"
+  }
+}

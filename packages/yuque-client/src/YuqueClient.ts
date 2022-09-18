@@ -13,17 +13,23 @@ export type YuqueClientOptions = {
    */
   apiHost?: string;
   /**
-   * 访问者应用名称，确保 yuque 能知道访问者是谁
+   * 访问者应用名称，确保 yuque 能知道访问者是谁，默认 yuque-client
    */
-  appName: string;
+  appName?: string;
   /**
    * 获取 Token 可通过点击语雀的个人头像，并进入 个人设置 页面拿到
    */
   accessToken: string;
 };
 
-const defaultYuqueClientOptions = {
+type Ratelimit = {
+  limit: number | null;
+  remaining: number | null;
+};
+
+const defaultYuqueClientOptions: Partial<YuqueClientOptions> = {
   apiHost: 'https://www.yuque.com/api/v2',
+  appName: 'yuque-client',
 };
 
 export class YuqueClient {
@@ -52,6 +58,14 @@ export class YuqueClient {
   //  * @deprecated 组织已经不在允许了
    */
   group: GroupApi;
+
+  /**
+   * 限流信息
+   */
+  ratelimit: Ratelimit = { limit: null, remaining: null };
+
+  // 最后更新 ratelimit 的请求 ID
+  private lastRateLimitReqSeqNumber: number = 0;
 
   constructor(options: YuqueClientOptions) {
     this.finalOptions = { ...defaultYuqueClientOptions, ...options };
@@ -83,7 +97,7 @@ export class YuqueClient {
       method,
       headers: {
         'X-Auth-Token': this.finalOptions.accessToken,
-        'User-Agent': this.finalOptions.appName,
+        'User-Agent': this.finalOptions.appName!,
         'Content-Type': 'application/json',
       },
       // redirect: 'manual'
@@ -103,12 +117,38 @@ export class YuqueClient {
     const reqSeqNumber = ++YuqueClient.ReqSeqNumber;
     log('%s: fetch url = %s, params = %o', reqSeqNumber, apiUrl, requestInit);
     return Undici.fetch(apiUrl, requestInit)
-      .then((res) => {
-        return res.json() as Promise<YuqueResponseBase<DataT>>;
+      .then((res): Promise<{ status: number; body: any; headers: Headers }> => {
+        // 完全解析出请求数据
+        return res.json().then((body) => {
+          return { status: res.status, headers: res.headers, body };
+        });
+      })
+      .then((responseData): Promise<YuqueResponseBase<DataT>> => {
+        // 响应状态码不在 200~299，当做异常处理
+        if (responseData.status < 200 || responseData.status > 299) {
+          throw responseData;
+        }
+
+        // 更新限流信息
+        const limit = responseData.headers.get('x-ratelimit-limit');
+        const remaining = responseData.headers.get('x-ratelimit-remaining');
+        // limit 存在表示进入更新限流逻辑
+        if (limit) {
+          // 如果最后更新限流的请求序列号小于当前，则意味着需要更新限流信息
+          if (this.lastRateLimitReqSeqNumber < reqSeqNumber) {
+            this.lastRateLimitReqSeqNumber = reqSeqNumber;
+            this.ratelimit = { limit: Number(limit), remaining: Number(remaining) };
+          }
+        }
+        log('%s: body = %o', reqSeqNumber, responseData.body);
+        // 仅返回响应 body
+        return responseData.body;
       })
       .then((resBody) => {
-        log('%s: message = %s, status = %s', reqSeqNumber, resBody.message, resBody.status);
         return resBody.data;
+      })
+      .catch((reason) => {
+        return Promise.reject(reason);
       });
   };
 }
