@@ -27,7 +27,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@bizjs/biz-utils-node": "^0.3.4",
+    "@bizjs/biz-utils-node": "^0.3.5",
     "debug": "^4.3.4",
     "undici": "^5.10.0"
   },
