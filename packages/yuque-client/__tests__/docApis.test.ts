@@ -14,4 +14,35 @@ describe('YuqueClient doc apis tests', () => {
     // includeReadCount = true 时，会返回阅读量
     expect(docList[0].hits).toBe(docList[0].read_count);
   });
+
+  test('query detail', async () => {
+    const slug = 'ug5sqf';
+    const detail = await client.doc.getDocDetail('hstarorg/docs', slug);
+    expect(detail.slug).toBe(slug);
+  });
+
+  test('doc create / update /delete test', async () => {
+    const repo = 'staff-rdzqbf/rym8ml';
+    const client = getClient('bizlab');
+
+    // Create
+    const newDoc = await client.doc.createDoc(repo, {
+      title: 'Hello',
+    });
+    expect(newDoc.title).toBe('Hello');
+
+    // Update
+    const updatedDoc = await client.doc.updateDoc(repo, newDoc.id, {
+      title: 'Hello-Updated',
+    });
+    expect(updatedDoc.title).toBe('Hello-Updated');
+
+    // Delete
+    const delResult = await client.doc.deleteDoc(repo, newDoc.id);
+    expect(delResult.deleted_at).toBeTruthy();
+
+    // Query detail 不存在
+    const detail = await client.doc.getDocDetail(repo, newDoc.slug);
+    expect(detail).toBe(undefined);
+  });
 });

@@ -1,4 +1,4 @@
-import { CreateDocRequest, DocSerializer, DocUpdateRequest } from '../types/doc.type';
+import { CreateDocRequest, DocDetailSerializer, DocSerializer, DocUpdateRequest } from '../types/doc.type';
 import { YuqueAPIBase } from './YuqueAPIBase';
 
 export type QueryDocsOptions = {
@@ -39,7 +39,7 @@ export class DocApi extends YuqueAPIBase {
    * @returns
    */
   getDocDetail(repoIdOrName: string | number, idOrSlug: string) {
-    return this.get(`/repos/${repoIdOrName}/docs/${idOrSlug}`);
+    return this.get<DocDetailSerializer>(`/repos/${repoIdOrName}/docs/${idOrSlug}`);
   }
 
   /**
@@ -49,7 +49,7 @@ export class DocApi extends YuqueAPIBase {
    * @returns
    */
   createDoc(repoIdOrName: string | number, docCreateRequest: CreateDocRequest) {
-    return this.post(`/repos/${repoIdOrName}/docs`, docCreateRequest);
+    return this.post<DocDetailSerializer>(`/repos/${repoIdOrName}/docs`, docCreateRequest);
   }
 
   /**
@@ -60,7 +60,7 @@ export class DocApi extends YuqueAPIBase {
    * @returns
    */
   updateDoc(repoIdOrName: string | number, docId: number, docUpdateRequest: DocUpdateRequest) {
-    return this.put(`/repos/${repoIdOrName}/docs/${docId}`, docUpdateRequest);
+    return this.put<DocDetailSerializer>(`/repos/${repoIdOrName}/docs/${docId}`, docUpdateRequest);
   }
 
   /**
@@ -70,6 +70,6 @@ export class DocApi extends YuqueAPIBase {
    * @returns
    */
   deleteDoc(repoIdOrName: string | number, docId: number) {
-    return this.delete(`/repos/${repoIdOrName}/docs/${docId}`);
+    return this.delete<DocDetailSerializer>(`/repos/${repoIdOrName}/docs/${docId}`);
   }
 }

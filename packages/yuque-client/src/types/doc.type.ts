@@ -1,3 +1,4 @@
+import { RepoSerializer } from './repo.type';
 import type { UserSerializer } from './user.type';
 
 /**
@@ -19,6 +20,7 @@ export type DocSerializer = {
    * 文档描述
    */
   description: string;
+
   /**
    * 文档创建人 ID
    */
@@ -87,14 +89,30 @@ export type DocSerializer = {
    * 最后编辑者信息
    */
   last_editor: UserSerializer;
-  book?: any;
+  book?: RepoSerializer;
   /**
    * optional_properties = hits 时出现，表示阅读量
    */
   hits?: number;
 };
 
-export type DocDetailSerializer = {};
+/**
+ * 文档详情
+ * _serializer = "v2.doc_detail"
+ */
+export type DocDetailSerializer = DocSerializer & {
+  creator?: UserSerializer;
+  deleted_at: string | null;
+  body: string;
+  body_lake: string;
+  body_draft: string;
+  body_draft_lake: string;
+
+  /**
+   * 可直接展示用的语雀文档 HTML
+   */
+  body_html: string;
+};
 
 export type CreateDocRequest = {
   /**

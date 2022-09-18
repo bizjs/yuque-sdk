@@ -1,2 +1,2 @@
-export { HtmlRender } from './html-render-react/HtmlRender';
-export type { HtmlRenderProps } from './html-render-react/HtmlRender';
+export { YuqueDocRender } from './YuqueDocRender';
+export type { YuqueDocRenderProps } from './YuqueDocRender';
