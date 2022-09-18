@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 export type HtmlStyle = { href: string } | string;
 
@@ -10,12 +10,22 @@ export type HtmlRenderProps = {
 
 const STYLE_CLASS_NAME = 'biz-html-render-shadow-style';
 
-export const HtmlRender = (props: HtmlRenderProps) => {
+export type HtmlRenderRef = { getContentDOM: () => HTMLDivElement };
+
+export const HtmlRender = forwardRef<HtmlRenderRef, HtmlRenderProps>((props: HtmlRenderProps, ref) => {
   const { htmlContent, styles = [], className } = props;
 
   const shadowRootRef = useRef<ShadowRoot>();
   const divRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>();
+
+  useImperativeHandle(ref, () => {
+    return {
+      getContentDOM() {
+        return contentRef.current!;
+      },
+    };
+  });
 
   useEffect(() => {
     // 没有 shadom root 时，先初始化 shadowRoot
@@ -58,4 +68,4 @@ export const HtmlRender = (props: HtmlRenderProps) => {
   const divClass = `biz-html-render ${className}`;
 
   return <div className={divClass} ref={divRef}></div>;
-};
+});
