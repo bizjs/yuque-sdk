@@ -35,13 +35,13 @@ describe('YuqueClient group apis tests', () => {
     expect(detail).toStrictEqual(updatedGroup);
 
     // 添加成员
-    const newUser = await client.group.addOrUpdateGroupUser(detail.id, { userLogin: 'kenan-5xhtg', role: 'memeber' });
-    expect(newUser.user_id).toBe(278352);
+    const newUser = await client.group.addOrUpdateGroupUser(detail.id, { userLogin: 'huihui315', role: 'memeber' });
+    expect(newUser.user_id).toBe(12512196);
 
     // 删除成员
 
-    const delUserResult = await client.group.deleteGroupUser(detail.id, 'kenan-5xhtg');
-    expect(delUserResult.user_id).toBe(278352);
+    const delUserResult = await client.group.deleteGroupUser(detail.id, 'huihui315');
+    expect(delUserResult.user_id).toBe(12512196);
 
     // 删除 Group
     const delGroupResult = await client.group.deleteGroup(detail.id);

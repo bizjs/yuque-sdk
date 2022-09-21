@@ -27,11 +27,15 @@ describe('YuqueClient repo apis tests', () => {
 
     expect(repoList.length).toBe(repoList2.length);
 
-    function mapItem(x: RepoSerializer) {
-      return { id: x.id, name: x.name };
+    function formatArr(repos: RepoSerializer[]) {
+      return repos
+        .map((x) => ({
+          id: x.id,
+          name: x.name,
+        }))
+        .sort((x1, x2) => x1.id - x2.id);
     }
-
-    expect(repoList.map(mapItem)).toStrictEqual(repoList2.map(mapItem));
+    expect(formatArr(repoList)).toStrictEqual(formatArr(repoList2));
   });
 
   test('get repo detail', async () => {
