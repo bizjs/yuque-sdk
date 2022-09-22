@@ -1,6 +1,6 @@
 {
   "name": "yuque-doc-render",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Yuque 文档渲染器，传入 body_html 即可渲染",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
