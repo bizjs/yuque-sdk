@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "umi": "^4.0.21",
-    "yuque-doc-render": "workspace:^0.0.2"
+    "yuque-doc-render": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

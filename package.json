@@ -2,14 +2,15 @@
   "name": "yuque-sdk",
   "version": "1.0.0",
   "description": "The open sdk for yuque.",
-  "main": "index.js",
   "scripts": {
-    "dev:client": "lerna run dev --stream --scope yuque-client",
-    "dev:render": "lerna run dev --stream --scope yuque-doc-render",
-    "build": "lerna run build --stream",
-    "test": "cross-env DEBUG=yuque lerna run test --stream",
-    "test:client": "cross-env DEBUG=yuque:client lerna run test --scope yuque-client --stream",
-    "pub": "lerna run test && lerna run build && lerna publish"
+    "dev:client": "pnpm --filter yuque-client dev",
+    "dev:render": "pnpm --filter yuque-doc-render dev",
+    "demo:client": "cd examples/yuque-client-demo && pnpm start",
+    "demo:app": "cd examples/yuque-demo-app && pnpm start",
+    "build": "pnpm --filter \"./packages/*\" build",
+    "test": "cross-env DEBUG=yuque pnpm --filter \"./packages/*\" test",
+    "test:client": "cross-env DEBUG=yuque:client pnpm --filter yuque-client test",
+    "pub": "pnpm build && pnpm test && lerna publish"
   },
   "keywords": [],
   "author": "",
