@@ -10,6 +10,7 @@
     "build": "pnpm --filter \"./packages/*\" build",
     "test": "cross-env DEBUG=yuque pnpm --filter \"./packages/*\" test",
     "test:client": "cross-env DEBUG=yuque:client pnpm --filter yuque-client test",
+    "ver": "lerna version --no-private",
     "pub": "pnpm build && pnpm test && lerna publish"
   },
   "keywords": [],
