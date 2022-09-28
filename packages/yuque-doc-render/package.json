@@ -42,7 +42,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@bizjs/shadow-render-react": "^1.0.1",
+    "@bizjs/shadow-render-react": "^1.1.0",
     "prismjs": "^1.29.0"
   }
 }
