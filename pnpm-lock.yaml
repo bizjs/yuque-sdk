@@ -83,6 +83,9 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
 
+  packages/yuque-embed:
+    specifiers: {}
+
 packages:
 
   /@ampproject/remapping/2.2.0:
